@@ -1,7 +1,7 @@
 const express=require('express')
 const app = express()
-const port= 4000
-const {auth} = require('./middleware/auth')
+const port= 5000
+const {auth} = require('./middleware/auth');
 const {User} = require("./models/User");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
@@ -18,6 +18,9 @@ app.use(cookieParser());
 mongoose.connect(config.mongoURI
 ).then(()=> console.log("mongo db connected"))
 .catch(err=>console.log(err))
+
+app.get('/api/hello',(req,res)=>
+    res.send('안녕하세요!'))
 
 app.get('/',(req,res)=>res.send('hello world 뚜아짱'))
 
@@ -96,7 +99,8 @@ app.get('/api/users/auth',auth,(res,req)=>{
 })
 
 app.get('/api/users/logout',auth,(req,res)=>{
-    User.findOneAndUpdate({_id:req.user._id}),
+    console.log("로그아웃 하기")
+    User.findOneAndUpdate({_id:req.user._id},
     {token:""},
     (err,user)=>{
         if(err){
@@ -111,8 +115,15 @@ app.get('/api/users/logout',auth,(req,res)=>{
             success:true
         })
     }
-})
-
+)})
+// app.get('/api/users/logout', auth, (req, res) => {
+//     User.findOneAndUpdate({_id: req.user._id}, {token: ""}, (err, user) => {
+//         if(err) return res.json({success: false, err});
+//         return res.status(200).send({
+//             success: true
+//         })
+//     })
+// })
 app.listen(port,()=> console.log(`example app listening on port ${port}!`))
 
 
