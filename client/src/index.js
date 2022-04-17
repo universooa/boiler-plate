@@ -10,6 +10,7 @@ import { applyMiddleware,createStore } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
 import Reducer from './_reducers'; //index.js 알아서 찾음
+import { BrowserRouter } from 'react-router-dom';
 
 const createStoreWithMiddleWare= applyMiddleware(promiseMiddleware,ReduxThunk)(createStore)
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,7 +24,9 @@ root.render(
   >
   <React.StrictMode>
     <div>hello</div>
+    <BrowserRouter>
     <App />
+    </BrowserRouter>
   </React.StrictMode>
   </Provider>
 );

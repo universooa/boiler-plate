@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import axios from 'axios';
-import { UNSAFE_NavigationContext, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function LandingPage(props) {
